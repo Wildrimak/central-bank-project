@@ -1,5 +1,7 @@
 package br.com.infoway.cashmachine.models;
 
+import java.math.BigDecimal;
+
 public class SavingsAccount implements Account {
 
 	private Long id;
@@ -7,6 +9,7 @@ public class SavingsAccount implements Account {
 	private Integer verifyingDigit;
 	private Customer customer;
 	private Agency agency;
+	private BigDecimal balance;
 
 	public SavingsAccount() {
 	}
@@ -33,6 +36,29 @@ public class SavingsAccount implements Account {
 	@Override
 	public Agency getAgency() {
 		return agency;
+	}
+
+	@Override
+	public void withdrawal(BigDecimal value) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void deposit(BigDecimal value) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void transfer(BigDecimal value, Account account) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public BigDecimal getBalance() {
+		return balance;
 	}
 
 }
