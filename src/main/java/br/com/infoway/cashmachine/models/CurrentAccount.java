@@ -2,11 +2,21 @@ package br.com.infoway.cashmachine.models;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class CurrentAccount implements Account {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Integer number;
 	private Integer verifyingDigit;
+	@ManyToOne
 	private Customer customer;
 	private Agency agency;
 	private BigDecimal balance; // saldo
