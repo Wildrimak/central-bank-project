@@ -1,6 +1,7 @@
 package br.com.infoway.cashmachine.models;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -9,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Account {
@@ -21,6 +24,7 @@ public class Account {
 	private Integer verifyingDigit;
 
 	@ManyToOne
+	@JsonIgnore
 	private Customer customer;
 
 	@ManyToOne
@@ -35,6 +39,20 @@ public class Account {
 	private List<Movement> movements;
 
 	public Account() {
+		this.movements = new ArrayList<>();
+	}
+
+	public Account(Agency agency, BigDecimal balance, BigDecimal limit, Customer customer, BigDecimal fee,
+			Integer number, Integer digit) {
+		this();
+		this.agency = agency;
+		this.balance = balance;
+		this.maximumLimit = limit;
+		this.currentLimit = limit;
+		this.customer = customer;
+		this.fee = fee;
+		this.number = number;
+		this.verifyingDigit = digit;
 	}
 
 	public Long getId() {

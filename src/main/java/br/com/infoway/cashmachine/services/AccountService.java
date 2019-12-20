@@ -17,5 +17,9 @@ public class AccountService {
 	public List<Account> getAccounts() {
 		return this.accountRepository.findAll();
 	}
+	
+	public Account save(Account account) {
+		return this.accountRepository.save(account);
+	}
 
 }

@@ -44,6 +44,16 @@ public class Customer {
 		this.cpf = cpf;
 	}
 
+	public Customer(Date birthDate, String cpf, String email, String fullName, String password) {
+		this.birthDate = birthDate;
+		this.cpf = cpf;
+		this.email = email;
+		this.password = password;
+		this.email = email;
+		this.fullName = fullName;
+		this.password = password;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -82,6 +92,10 @@ public class Customer {
 
 	public List<Account> getAccounts() {
 		return Collections.unmodifiableList(accounts);
+	}
+
+	public void setAccounts(List<Account> accounts) {
+		this.accounts = accounts;
 	}
 
 }

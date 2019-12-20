@@ -48,6 +48,10 @@ public class Agency {
 		return id;
 	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public Integer getNumber() {
 		return number;
 	}
