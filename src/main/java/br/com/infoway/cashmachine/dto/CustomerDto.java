@@ -14,7 +14,7 @@ public class CustomerDto {
 	private String password;
 	private String cpf;
 	private Date birthDate;
-	private List<AccountDto> accountsDto;
+	private List<AccountDto> accounts;
 
 	public String getFullName() {
 		return fullName;
@@ -56,25 +56,25 @@ public class CustomerDto {
 		this.birthDate = birthDate;
 	}
 
-	public List<AccountDto> getAccountsDto() {
-		return accountsDto;
+	public List<AccountDto> getAccounts() {
+		return accounts;
 	}
 
-	public void setAccountsDto(List<AccountDto> contasDto) {
-		this.accountsDto = contasDto;
+	public void setAccounts(List<AccountDto> contasDto) {
+		this.accounts = contasDto;
 	}
 
 	public Customer getCustomer() {
 
 		Customer customer = new Customer(birthDate, cpf, email, fullName, password);
 
-		List<Account> accounts = new ArrayList<>();
-		for (AccountDto accountDto : accountsDto) {
+		List<Account> accountsCustomer = new ArrayList<>();
+		for (AccountDto accountDto : accounts) {
 			Account account = accountDto.getAccount(customer);
-			accounts.add(account);
+			accountsCustomer.add(account);
 		}
 
-		customer.setAccounts(accounts);
+		customer.setAccounts(accountsCustomer);
 		return customer;
 	}
 }
