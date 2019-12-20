@@ -1,5 +1,6 @@
 package br.com.infoway.cashmachine.models;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -21,21 +22,26 @@ public class Agency {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private Integer number;
-	
+
 	@CreationTimestamp
 	private Date creationDate;
-	
+
 	@ManyToOne
 	@JsonIgnore
 	private Bank bank;
-	
+
 	@OneToMany(mappedBy = "agency")
-	@JsonIgnore
 	private List<Account> accounts;
 
 	public Agency() {
+	}
+
+	public Agency(Integer number, Bank bank) {
+		this.number = number;
+		this.bank = bank;
+		this.accounts = new ArrayList<>();
 	}
 
 	public Long getId() {

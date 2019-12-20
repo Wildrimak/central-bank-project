@@ -22,4 +22,8 @@ public class BankService {
 		return this.bankRepository.save(bank);
 	}
 
+	public Bank findOne(Long id_bank) {
+		return bankRepository.findById(id_bank).get();
+	}
+
 }

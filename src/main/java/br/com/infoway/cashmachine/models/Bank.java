@@ -15,8 +15,6 @@ import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 public class Bank {
 
