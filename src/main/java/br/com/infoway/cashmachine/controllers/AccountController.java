@@ -49,7 +49,6 @@ public class AccountController {
 	@PostMapping("{myAccount}/transfer")
 	public Account postTranfer(@RequestBody ActionDto actionDto, @PathVariable Long myAccount) {
 
-		System.out.println("ID: " + actionDto.getIdAccount());
 		Account account = accountService.getAccountById(myAccount);
 		Account destination = accountService.getAccountById(actionDto.getIdAccount());
 		account.transfer(actionDto.getValue(), destination);
