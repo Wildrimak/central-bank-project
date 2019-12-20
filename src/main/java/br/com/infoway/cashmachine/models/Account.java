@@ -16,21 +16,21 @@ public class Account {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private Integer number;
 	private Integer verifyingDigit;
-	
+
 	@ManyToOne
 	private Customer customer;
-	
+
 	@ManyToOne
 	private Agency agency;
-	
+
 	private BigDecimal balance; // saldo
 	private BigDecimal maximumLimit;
 	private BigDecimal currentLimit;
 	private BigDecimal fee; // taxa
-	
+
 	@OneToMany(mappedBy = "account")
 	private List<Movement> movements;
 
@@ -69,7 +69,7 @@ public class Account {
 		return maximumLimit;
 	}
 
-	public void withdrawal(BigDecimal value) {
+	public void withdrawal(BigDecimal value) throws IllegalArgumentException {
 
 		// saqueReal = valor + taxa
 		BigDecimal realWithdrawal = value.add(fee);
@@ -104,7 +104,7 @@ public class Account {
 		this.balance = BigDecimal.ZERO;
 	}
 
-	public void deposit(BigDecimal value) {
+	public void deposit(BigDecimal value) throws IllegalArgumentException {
 
 		// valor <= 0;
 		if (value.compareTo(BigDecimal.ZERO) <= 0) {

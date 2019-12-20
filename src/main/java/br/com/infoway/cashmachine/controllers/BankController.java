@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.infoway.cashmachine.dto.BankDto;
 import br.com.infoway.cashmachine.models.Bank;
 import br.com.infoway.cashmachine.services.BankService;
 
@@ -26,7 +27,8 @@ public class BankController {
 	}
 	
 	@PostMapping
-	public Bank save(@Validated @RequestBody Bank bank) {
+	public Bank save(@Validated @RequestBody BankDto dto) {
+		Bank bank = dto.getBank();
 		return this.bankService.save(bank);
 	}
 

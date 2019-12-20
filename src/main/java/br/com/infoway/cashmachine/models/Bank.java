@@ -1,5 +1,6 @@
 package br.com.infoway.cashmachine.models;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -22,18 +23,22 @@ public class Bank {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@NotEmpty(message = "the name is required!")
 	private String name;
-	
+
 	@CreationTimestamp
 	private Date creationDate;
 
 	@OneToMany(mappedBy = "bank", fetch = FetchType.LAZY)
-	@JsonIgnore
 	private List<Agency> agencies;
 
 	public Bank() {
+	}
+
+	public Bank(String name) {
+		this.name = name;
+		this.agencies = new ArrayList<>();
 	}
 
 	public Long getId() {
