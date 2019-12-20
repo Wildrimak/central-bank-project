@@ -30,15 +30,9 @@ public class CustomerController {
 
 	@PostMapping("/accounts")
 	public Customer postCustomer(@RequestBody CustomerDto customerDto) {
-		
+
 		Customer customer = customerDto.getCustomer();
 
-		System.out.println(customerDto.getCpf());
-		System.out.println(customerDto.getEmail());
-		System.out.println(customerDto.getFullName());
-		System.out.println(customerDto.getPassword());
-		System.out.println(customerDto.getBirthDate());
-		
 		return customerService.save(customer);
 	}
 

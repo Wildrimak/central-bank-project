@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,6 +30,7 @@ public class Account {
 	private Customer customer;
 
 	@ManyToOne
+	@JsonIgnore
 	private Agency agency;
 
 	private BigDecimal balance; // saldo
@@ -35,7 +38,7 @@ public class Account {
 	private BigDecimal currentLimit;
 	private BigDecimal fee; // taxa
 
-	@OneToMany(mappedBy = "account")
+	@OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Movement> movements;
 
 	public Account() {

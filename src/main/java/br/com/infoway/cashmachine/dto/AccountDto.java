@@ -8,19 +8,19 @@ import br.com.infoway.cashmachine.models.Customer;
 
 public class AccountDto {
 
-	private Long agency_id;
+	private Long agencyId;
 	private BigDecimal balance; // saldo
 	private BigDecimal maximumLimit;
 	private BigDecimal fee; // taxa
 	private Integer number;
 	private Integer verifyingDigit;
 
-	public Long getAgency_id() {
-		return agency_id;
+	public Long getAgencyId() {
+		return agencyId;
 	}
-
-	public void setAgency_id(Long agency_id) {
-		this.agency_id = agency_id;
+	
+	public void setAgencyId(Long agency_id) {
+		this.agencyId = agency_id;
 	}
 
 	public BigDecimal getBalance() {
@@ -66,7 +66,7 @@ public class AccountDto {
 	public Account getAccount(Customer customer) {
 
 		Agency agency = new Agency();
-		agency.setId(agency_id);
+		agency.setId(agencyId);
 		Account account = new Account(agency, balance, maximumLimit, customer, fee, number, verifyingDigit);
 
 		return account;
