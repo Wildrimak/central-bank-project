@@ -6,10 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.infoway.cashmachine.dto.ActionDto;
 import br.com.infoway.cashmachine.models.Account;
 import br.com.infoway.cashmachine.services.AccountService;
 
@@ -25,11 +26,34 @@ public class AccountController {
 		return this.accountService.getAccounts();
 	}
 
-	@PostMapping("{id_account}/withdrawal")
-	public Account postWithdrawal(@RequestParam("value") double value, @PathVariable Long id_account) {
+	@PostMapping("{idAccount}/withdrawal")
+	public Account postWithdrawal(@RequestBody ActionDto actionDto, @PathVariable Long idAccount) {
 
-		System.out.println(value);
-		Account account = new Account();
+		Account account = accountService.getAccountById(idAccount);
+		account.withdrawal(actionDto.getValue());
+		accountService.save(account);
+		return account;
+
+	}
+	
+	@PostMapping("{idAccount}/deposit")
+	public Account postDeposit(@RequestBody ActionDto actionDto, @PathVariable Long idAccount) {
+
+		Account account = accountService.getAccountById(idAccount);
+		account.deposit(actionDto.getValue());
+		accountService.save(account);
+		return account;
+
+	}
+	
+	@PostMapping("{myAccount}/transfer")
+	public Account postTranfer(@RequestBody ActionDto actionDto, @PathVariable Long myAccount) {
+
+		System.out.println("ID: " + actionDto.getIdAccount());
+		Account account = accountService.getAccountById(myAccount);
+		Account destination = accountService.getAccountById(actionDto.getIdAccount());
+		account.transfer(actionDto.getValue(), destination);
+		accountService.save(account);
 		return account;
 
 	}
