@@ -33,10 +33,10 @@ public class Account {
 	@JsonIgnore
 	private Agency agency;
 
-	private BigDecimal balance; // saldo
+	private BigDecimal balance;
 	private BigDecimal maximumLimit;
 	private BigDecimal currentLimit;
-	private BigDecimal fee; // taxa
+	private BigDecimal fee;
 
 	@OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Movement> movements;
@@ -92,37 +92,32 @@ public class Account {
 
 	public void withdrawal(BigDecimal value) throws IllegalArgumentException {
 
-		// saqueReal = valor + taxa
 		BigDecimal realWithdrawal = value.add(fee);
 
-		// valor <= 0;
 		if (value.compareTo(BigDecimal.ZERO) <= 0) {
 			throw new IllegalArgumentException("The value has to be greater than zero.");
 		}
 
-		// saqueReal <= 0;
 		if (realWithdrawal.compareTo(BigDecimal.ZERO) <= 0) {
 			throw new IllegalArgumentException("The value has to be greater than zero.");
 		}
 
-		// saqueReal <= balance
 		if (realWithdrawal.compareTo(balance) <= 0) {
 			this.balance = this.balance.subtract(realWithdrawal);
+			this.movements.add(new Movement("Successful withdrawal of " + value.toPlainString() + " + fee of " + fee.toPlainString(), this));
 			return;
 		}
 
-		// saqueReal > saldo + limite
 		if (realWithdrawal.compareTo(balance.add(currentLimit)) > 0) {
 			throw new IllegalArgumentException(
 					"Your withdrawal cannot be higher than your current limit plus your balance.");
 		}
 
-		// retireDoLimite = saldo - valor
-		// limiteCorrente = limiteCorrente + retireDoLimite
-		// this.saldo = 0;
 		BigDecimal removeFromLimit = this.balance.subtract(realWithdrawal);
 		this.currentLimit = this.currentLimit.add(removeFromLimit);
 		this.balance = BigDecimal.ZERO;
+		this.movements.add(new Movement("Successful withdrawal of " + value.toPlainString() + " + fee of " + fee.toPlainString(), this));
+
 	}
 
 	public void deposit(BigDecimal value) throws IllegalArgumentException {
@@ -133,6 +128,7 @@ public class Account {
 		}
 
 		this.balance = this.balance.add(value);
+		this.movements.add(new Movement("Successful deposit of " + value.toPlainString(), this));
 
 	}
 
