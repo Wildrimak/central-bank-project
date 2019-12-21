@@ -46,11 +46,14 @@ public class BankController {
 	}
 
 	@PostMapping("{id_bank}/agencies")
-	public Agency postAgencyFromBank(@Validated @RequestBody AgencyDto dto, @PathVariable Long id_bank) {
+	public ResponseEntity<Agency> postAgency(@Validated @RequestBody AgencyDto dto, @PathVariable Long idBank) {
 
-		Bank bank = bankService.findOne(id_bank);
+		Bank bank = bankService.findOne(idBank);
 		Agency agency = dto.getAgency(bank);
-		return this.agencyService.save(agency);
+		agency = this.agencyService.save(agency);
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(agency);
+
 	}
 
 }
