@@ -3,6 +3,8 @@ package br.com.infoway.cashmachine.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,14 +36,18 @@ public class BankController {
 	}
 
 	@PostMapping
-	public Bank postBank(@Validated @RequestBody BankDto dto) {
+	public ResponseEntity<Bank> postBank(@Validated @RequestBody BankDto dto) {
+
 		Bank bank = dto.getBank();
-		return this.bankService.save(bank);
+		bank = this.bankService.save(bank);
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(bank);
+
 	}
 
 	@PostMapping("{id_bank}/agencies")
 	public Agency postAgencyFromBank(@Validated @RequestBody AgencyDto dto, @PathVariable Long id_bank) {
-		
+
 		Bank bank = bankService.findOne(id_bank);
 		Agency agency = dto.getAgency(bank);
 		return this.agencyService.save(agency);
