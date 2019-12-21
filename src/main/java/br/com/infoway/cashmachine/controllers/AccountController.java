@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.infoway.cashmachine.dto.ActionDto;
 import br.com.infoway.cashmachine.models.Account;
+import br.com.infoway.cashmachine.models.Movement;
 import br.com.infoway.cashmachine.services.AccountService;
 
 @RestController
@@ -35,7 +36,7 @@ public class AccountController {
 		return account;
 
 	}
-	
+
 	@PostMapping("{idAccount}/deposit")
 	public Account postDeposit(@RequestBody ActionDto actionDto, @PathVariable Long idAccount) {
 
@@ -45,7 +46,7 @@ public class AccountController {
 		return account;
 
 	}
-	
+
 	@PostMapping("{myAccount}/transfer")
 	public Account postTranfer(@RequestBody ActionDto actionDto, @PathVariable Long myAccount) {
 
@@ -54,6 +55,15 @@ public class AccountController {
 		account.transfer(actionDto.getValue(), destination);
 		accountService.save(account);
 		return account;
+
+	}
+
+	@GetMapping("{idAccount}/movements")
+	public List<Movement> getMovements(@PathVariable Long idAccount) {
+
+		List<Movement> movements = accountService.getMovements(idAccount);
+
+		return movements;
 
 	}
 }
