@@ -1,7 +1,5 @@
 package br.com.infoway.cashmachine.services;
 
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
 import java.util.Date;
 
 import org.junit.Before;
@@ -40,10 +38,8 @@ public class CustomerServiceTest {
 	@Test(expected = EmailCannotBeTheSameException.class)
 	public void emailCannotBeTheSameAsAnEmailAlreadyRegistered() {
 
-		Customer customerFirst = customerService.save(this.customer);
-		Customer customerSecond = customerService.save(this.customer);
-
-		assertNotEquals(customerFirst.getEmail(), customerSecond.getEmail());
+		customerService.save(this.customer);
+		customerService.save(this.customer);
 
 	}
 
