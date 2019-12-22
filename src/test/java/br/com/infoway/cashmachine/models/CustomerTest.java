@@ -20,17 +20,18 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class CustomerTest {
 
 	private Validator validator;
+	private Customer customer;
 
 	@Before
 	public void setUp() {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
+		customer = new Customer(null, "543.321.770-10", "cliente@gmail.com", "Cliente do Banco", "P4SSw0rd");
 	}
 
 	@Test
 	public void fullNameCannotBeNull() {
 
-		Customer customer = new Customer();
 		customer.setFullName(null);
 
 		Set<ConstraintViolation<Customer>> violations = validator.validate(customer);
@@ -41,7 +42,6 @@ public class CustomerTest {
 	@Test
 	public void fullNameCannotBeEmpty() {
 
-		Customer customer = new Customer();
 		customer.setFullName("");
 
 		Set<ConstraintViolation<Customer>> violations = validator.validate(customer);
@@ -51,6 +51,11 @@ public class CustomerTest {
 
 	@Test
 	public void emailCannotBeNull() {
+
+		customer.setEmail(null);
+
+		Set<ConstraintViolation<Customer>> violations = validator.validate(customer);
+		assertFalse(violations.isEmpty());
 
 	}
 

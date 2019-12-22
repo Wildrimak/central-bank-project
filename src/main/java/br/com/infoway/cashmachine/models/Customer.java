@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -29,6 +30,8 @@ public class Customer {
 	private String fullName;
 	private String cpf;
 
+	@NotEmpty
+	@Email
 	private String email;
 
 	@JsonIgnore
