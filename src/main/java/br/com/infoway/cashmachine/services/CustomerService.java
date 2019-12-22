@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.infoway.cashmachine.exceptions.CpfCannotBeTheSameException;
+import br.com.infoway.cashmachine.exceptions.CustomerMustBeOver18Exception;
 import br.com.infoway.cashmachine.exceptions.EmailCannotBeTheSameException;
 import br.com.infoway.cashmachine.models.Customer;
 import br.com.infoway.cashmachine.repositories.CustomerRepository;
@@ -31,6 +32,7 @@ public class CustomerService {
 	private void validate(Customer customer) {
 		emailCannotBeTheSame(customer);
 		cpfCannotBeTheSame(customer);
+		customerMustBeOver18(customer);
 	}
 
 	private void emailCannotBeTheSame(Customer customer) {
@@ -53,6 +55,16 @@ public class CustomerService {
 
 		});
 
+	}
+
+	private void customerMustBeOver18(Customer customer) {
+
+		long eighteenYearsInMilliseconds = 567648000000l;
+		long customerAgeMilliseconds = customer.getBirthDate().getTime();
+
+		if (customerAgeMilliseconds < eighteenYearsInMilliseconds) {
+			throw new CustomerMustBeOver18Exception();
+		}
 	}
 
 }

@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -40,6 +41,7 @@ public class Customer {
 	@NotEmpty
 	private String cpf;
 
+	@NotNull
 	private Date birthDate;
 
 	@CreationTimestamp

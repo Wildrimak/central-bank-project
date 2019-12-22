@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.infoway.cashmachine.exceptions.CpfCannotBeTheSameException;
+import br.com.infoway.cashmachine.exceptions.CustomerMustBeOver18Exception;
 import br.com.infoway.cashmachine.exceptions.EmailCannotBeTheSameException;
 import br.com.infoway.cashmachine.models.Customer;
 
@@ -26,7 +27,7 @@ public class CustomerServiceTest {
 	private String defaultEmail = "customer@gmail.com";
 	private String defaultPassword = "P4SSw0rd";
 	private String defaultCpf = "543.321.770-10";
-	private Date defaultDate = null;
+	private Date defaultDate = new Date();
 
 	private Customer customer;
 
@@ -50,6 +51,20 @@ public class CustomerServiceTest {
 
 		Customer customerAnother = new Customer(defaultFullName, "other@gmail.com", defaultPassword, defaultCpf,
 				defaultDate);
+
+		customerService.save(customerAnother);
+
+	}
+
+	@Test(expected = CustomerMustBeOver18Exception.class)
+	public void customerMustBeOver18() {
+
+		long aboveEighteenYearsInMilliseconds = 567647999999l;
+
+		customerService.save(this.customer);
+
+		Customer customerAnother = new Customer(defaultFullName, "other2@gmail.com", defaultPassword, "353.156.440-49",
+				new Date(aboveEighteenYearsInMilliseconds));
 
 		customerService.save(customerAnother);
 
