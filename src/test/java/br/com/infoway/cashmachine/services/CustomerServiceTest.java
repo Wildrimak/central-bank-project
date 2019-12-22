@@ -2,16 +2,21 @@ package br.com.infoway.cashmachine.services;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import java.util.Date;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
+import br.com.infoway.cashmachine.exceptions.CpfCannotBeTheSameException;
 import br.com.infoway.cashmachine.exceptions.EmailCannotBeTheSameException;
 import br.com.infoway.cashmachine.models.Customer;
 
+@Transactional
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CustomerServiceTest {
@@ -19,11 +24,17 @@ public class CustomerServiceTest {
 	@Autowired
 	private CustomerService customerService;
 
+	private String defaultFullName = "Customer's Bank";
+	private String defaultEmail = "customer@gmail.com";
+	private String defaultPassword = "P4SSw0rd";
+	private String defaultCpf = "543.321.770-10";
+	private Date defaultDate = null;
+
 	private Customer customer;
 
 	@Before
 	public void setUp() {
-		customer = new Customer("Customer's Bank", "customer@gmail.com", "P4SSw0rd", "543.321.770-10", null);
+		customer = new Customer(defaultFullName, defaultEmail, defaultPassword, defaultCpf, defaultDate);
 	}
 
 	@Test(expected = EmailCannotBeTheSameException.class)
@@ -33,6 +44,18 @@ public class CustomerServiceTest {
 		Customer customerSecond = customerService.save(this.customer);
 
 		assertNotEquals(customerFirst.getEmail(), customerSecond.getEmail());
+
+	}
+
+	@Test(expected = CpfCannotBeTheSameException.class)
+	public void cpfCannotBeTheSameAsAnCpfAlreadyRegistered() {
+
+		customerService.save(this.customer);
+
+		Customer customerAnother = new Customer(defaultFullName, "other@gmail.com", defaultPassword, defaultCpf,
+				defaultDate);
+
+		customerService.save(customerAnother);
 
 	}
 

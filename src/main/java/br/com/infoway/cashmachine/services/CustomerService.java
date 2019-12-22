@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.infoway.cashmachine.exceptions.CpfCannotBeTheSameException;
 import br.com.infoway.cashmachine.exceptions.EmailCannotBeTheSameException;
 import br.com.infoway.cashmachine.models.Customer;
 import br.com.infoway.cashmachine.repositories.CustomerRepository;
@@ -29,6 +30,7 @@ public class CustomerService {
 
 	private void validate(Customer customer) {
 		emailCannotBeTheSame(customer);
+		cpfCannotBeTheSame(customer);
 	}
 
 	private void emailCannotBeTheSame(Customer customer) {
@@ -36,6 +38,17 @@ public class CustomerService {
 
 			if (customer.getEmail().equals(customerSaved.getEmail())) {
 				throw new EmailCannotBeTheSameException();
+			}
+
+		});
+
+	}
+
+	private void cpfCannotBeTheSame(Customer customer) {
+		customerRepository.findAll().forEach(customerSaved -> {
+
+			if (customer.getCpf().equals(customerSaved.getCpf())) {
+				throw new CpfCannotBeTheSameException();
 			}
 
 		});
