@@ -53,13 +53,14 @@ public class AccountController {
 	}
 
 	@PostMapping("{myAccount}/transfer")
-	public Account postTranfer(@RequestBody ActionDto actionDto, @PathVariable Long myAccount) {
+	public ResponseEntity<Account> postTranfer(@RequestBody ActionDto actionDto, @PathVariable Long myAccount) {
 
 		Account account = accountService.getAccountById(myAccount);
 		Account destination = accountService.getAccountById(actionDto.getIdAccount());
 		account.transfer(actionDto.getValue(), destination);
-		accountService.save(account);
-		return account;
+		account = accountService.save(account);
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(account);
 
 	}
 
