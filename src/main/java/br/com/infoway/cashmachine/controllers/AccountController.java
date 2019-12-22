@@ -3,6 +3,8 @@ package br.com.infoway.cashmachine.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,12 +30,13 @@ public class AccountController {
 	}
 
 	@PostMapping("{idAccount}/withdrawal")
-	public Account postWithdrawal(@RequestBody ActionDto actionDto, @PathVariable Long idAccount) {
+	public ResponseEntity<Account> postWithdrawal(@RequestBody ActionDto actionDto, @PathVariable Long idAccount) {
 
 		Account account = accountService.getAccountById(idAccount);
 		account.withdrawal(actionDto.getValue());
-		accountService.save(account);
-		return account;
+		account = accountService.save(account);
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(account);
 
 	}
 
