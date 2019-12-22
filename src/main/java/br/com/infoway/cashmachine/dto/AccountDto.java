@@ -12,7 +12,7 @@ public class AccountDto {
 	private BigDecimal balance; // saldo
 	private BigDecimal maximumLimit;
 	private BigDecimal fee; // taxa
-	private Integer number;
+	private String number;
 	private Integer verifyingDigit;
 
 	public Long getAgencyId() {
@@ -47,11 +47,11 @@ public class AccountDto {
 		this.fee = fee;
 	}
 
-	public Integer getNumber() {
+	public String getNumber() {
 		return number;
 	}
 
-	public void setNumber(Integer number) {
+	public void setNumber(String number) {
 		this.number = number;
 	}
 

@@ -5,13 +5,13 @@ import br.com.infoway.cashmachine.models.Bank;
 
 public class AgencyDto {
 
-	private Integer number;
+	private String number;
 
-	public Integer getNumber() {
+	public String getNumber() {
 		return number;
 	}
 
-	public void setNumber(Integer number) {
+	public void setNumber(String number) {
 		this.number = number;
 	}
 

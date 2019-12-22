@@ -23,7 +23,7 @@ public class Agency {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private Integer number;
+	private String number;
 
 	@CreationTimestamp
 	private Date creationDate;
@@ -38,7 +38,7 @@ public class Agency {
 	public Agency() {
 	}
 
-	public Agency(Integer number, Bank bank) {
+	public Agency(String number, Bank bank) {
 		this.number = number;
 		this.bank = bank;
 		this.accounts = new ArrayList<>();
@@ -52,7 +52,7 @@ public class Agency {
 		this.id = id;
 	}
 
-	public Integer getNumber() {
+	public String getNumber() {
 		return number;
 	}
 

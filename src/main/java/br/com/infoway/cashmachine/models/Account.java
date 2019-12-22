@@ -22,7 +22,7 @@ public class Account {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private Integer number;
+	private String number;
 	private Integer verifyingDigit;
 
 	@ManyToOne
@@ -46,7 +46,7 @@ public class Account {
 	}
 
 	public Account(Agency agency, BigDecimal balance, BigDecimal limit, Customer customer, BigDecimal fee,
-			Integer number, Integer digit) {
+			String number, Integer digit) {
 		this();
 		this.agency = agency;
 		this.balance = balance;
@@ -62,7 +62,7 @@ public class Account {
 		return id;
 	}
 
-	public Integer getNumber() {
+	public String getNumber() {
 		return number;
 	}
 
