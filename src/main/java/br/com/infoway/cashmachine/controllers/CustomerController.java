@@ -47,7 +47,6 @@ public class CustomerController {
 
 	@GetMapping("/accounts/{idAccount}")
 	public Account getAnyAccount(@PathVariable Long idAccount) {
-		System.out.println("ENTREI AQUI");
 		Account account = accountService.getAccountById(idAccount);
 		return account;
 	}
