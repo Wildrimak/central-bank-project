@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -24,8 +25,10 @@ public class Customer {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotEmpty(message = "Full name may not be empty")
 	private String fullName;
 	private String cpf;
+
 	private String email;
 
 	@JsonIgnore
@@ -42,12 +45,6 @@ public class Customer {
 	public Customer() {
 		this.registrationDate = new Date();
 		this.accounts = new ArrayList<>();
-	}
-
-	public Customer(String fullName, String cpf) {
-		this();
-		this.fullName = fullName;
-		this.cpf = cpf;
 	}
 
 	public Customer(Date birthDate, String cpf, String email, String fullName, String password) {
@@ -68,12 +65,16 @@ public class Customer {
 		return fullName;
 	}
 
-	public Date getBirthDate() {
-		return birthDate;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
 	public String getCpf() {
 		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 
 	public String getEmail() {
@@ -90,6 +91,14 @@ public class Customer {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Date getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
 	}
 
 	public Date getRegistrationDate() {
