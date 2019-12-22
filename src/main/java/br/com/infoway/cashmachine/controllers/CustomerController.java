@@ -46,9 +46,9 @@ public class CustomerController {
 	}
 
 	@GetMapping("/accounts/{idAccount}")
-	public Account getAnyAccount(@PathVariable Long idAccount) {
+	public ResponseEntity<Account> getAnyAccount(@PathVariable Long idAccount) {
 		Account account = accountService.getAccountById(idAccount);
-		return account;
+		return ResponseEntity.status(HttpStatus.OK).body(account);
 	}
 
 }
