@@ -28,7 +28,6 @@ public class Customer {
 
 	@NotEmpty(message = "Full name may not be empty")
 	private String fullName;
-	private String cpf;
 
 	@NotEmpty
 	@Email
@@ -37,6 +36,7 @@ public class Customer {
 	@JsonIgnore
 	private String password;
 
+	private String cpf;
 	private Date birthDate;
 
 	@CreationTimestamp
@@ -46,18 +46,20 @@ public class Customer {
 	private List<Account> accounts;
 
 	public Customer() {
+
 		this.registrationDate = new Date();
 		this.accounts = new ArrayList<>();
+
 	}
 
-	public Customer(Date birthDate, String cpf, String email, String fullName, String password) {
-		this.birthDate = birthDate;
-		this.cpf = cpf;
-		this.email = email;
-		this.password = password;
-		this.email = email;
+	public Customer(String fullName, String email, String password, String cpf, Date birthDate) {
+
 		this.fullName = fullName;
+		this.email = email;
 		this.password = password;
+		this.cpf = cpf;
+		this.birthDate = birthDate;
+
 	}
 
 	public Long getId() {
@@ -70,14 +72,6 @@ public class Customer {
 
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
 	}
 
 	public String getEmail() {
@@ -94,6 +88,14 @@ public class Customer {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 
 	public Date getBirthDate() {

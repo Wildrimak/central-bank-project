@@ -23,7 +23,7 @@ public class CustomerServiceTest {
 
 	@Before
 	public void setUp() {
-		customer = new Customer(null, "543.321.770-10", "customer@gmail.com", "Customer's Bank", "P4SSw0rd");
+		customer = new Customer("Customer's Bank", "customer@gmail.com", "P4SSw0rd", "543.321.770-10", null);
 	}
 
 	@Test(expected = EmailCannotBeTheSameException.class)

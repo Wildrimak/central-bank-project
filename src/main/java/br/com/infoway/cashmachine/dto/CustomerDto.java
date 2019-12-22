@@ -66,7 +66,7 @@ public class CustomerDto {
 
 	public Customer getCustomer() {
 
-		Customer customer = new Customer(birthDate, cpf, email, fullName, password);
+		Customer customer = new Customer(fullName, email, password, cpf, birthDate);
 
 		List<Account> accountsCustomer = new ArrayList<>();
 		for (AccountDto accountDto : accounts) {
