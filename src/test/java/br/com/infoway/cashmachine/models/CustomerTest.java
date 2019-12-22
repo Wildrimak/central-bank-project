@@ -81,7 +81,17 @@ public class CustomerTest {
 
 	@Test
 	public void passwordCannotBeEmpty() {
+		
 		customer.setPassword("");
+		Set<ConstraintViolation<Customer>> violations = validator.validate(customer);
+		assertFalse(violations.isEmpty());
+
+	}
+
+	@Test
+	public void cpfCannotBeEmpty() {
+
+		customer.setCpf("");
 		Set<ConstraintViolation<Customer>> violations = validator.validate(customer);
 		assertFalse(violations.isEmpty());
 

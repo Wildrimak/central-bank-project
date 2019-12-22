@@ -37,7 +37,9 @@ public class Customer {
 	@NotEmpty
 	private String password;
 
+	@NotEmpty
 	private String cpf;
+
 	private Date birthDate;
 
 	@CreationTimestamp
