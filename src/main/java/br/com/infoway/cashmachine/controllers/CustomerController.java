@@ -22,7 +22,7 @@ public class CustomerController {
 
 	@Autowired
 	private CustomerService customerService;
-	
+
 	@Autowired
 	private AccountService accountService;
 
@@ -41,8 +41,6 @@ public class CustomerController {
 
 		return customerService.save(customer);
 	}
-
-	// * GET /customer/{id}/accounts/{id}
 
 	@GetMapping("/accounts/{idAccount}")
 	public Account getAnyAccount(@PathVariable Long idAccount) {
