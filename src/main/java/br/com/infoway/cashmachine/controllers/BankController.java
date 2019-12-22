@@ -45,7 +45,7 @@ public class BankController {
 
 	}
 
-	@PostMapping("{id_bank}/agencies")
+	@PostMapping("{idBank}/agencies")
 	public ResponseEntity<Agency> postAgency(@Validated @RequestBody AgencyDto dto, @PathVariable Long idBank) {
 
 		Bank bank = bankService.findOne(idBank);
