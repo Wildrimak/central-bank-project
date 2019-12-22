@@ -26,7 +26,7 @@ public class CustomerTest {
 	public void setUp() {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
-		customer = new Customer(null, "543.321.770-10", "cliente@gmail.com", "Cliente do Banco", "P4SSw0rd");
+		customer = new Customer(null, "543.321.770-10", "customer@gmail.com", "Customer's Bank", "P4SSw0rd");
 	}
 
 	@Test
@@ -71,16 +71,11 @@ public class CustomerTest {
 
 	@Test
 	public void theEmailFieldMustHaveAnEmailAsContent() {
-	
+
 		customer.setEmail("wildrimak");
-	
+
 		Set<ConstraintViolation<Customer>> violations = validator.validate(customer);
 		assertFalse(violations.isEmpty());
-	
-	}
-
-	@Test
-	public void emailCannotBeTheSameAsAnEmailAlreadyRegistered() {
 
 	}
 
