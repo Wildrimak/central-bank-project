@@ -65,11 +65,11 @@ public class AccountController {
 	}
 
 	@GetMapping("{idAccount}/movements")
-	public List<Movement> getMovements(@PathVariable Long idAccount) {
+	public ResponseEntity<List<Movement>> getMovements(@PathVariable Long idAccount) {
 
 		List<Movement> movements = accountService.getMovements(idAccount);
 
-		return movements;
+		return ResponseEntity.status(HttpStatus.OK).body(movements);
 
 	}
 }
