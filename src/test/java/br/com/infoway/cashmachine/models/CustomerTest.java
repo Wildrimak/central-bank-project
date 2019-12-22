@@ -37,7 +37,7 @@ public class CustomerTest {
 		assertFalse(violations.isEmpty());
 
 	}
-	
+
 	@Test
 	public void fullNameCannotBeEmpty() {
 
@@ -46,6 +46,26 @@ public class CustomerTest {
 
 		Set<ConstraintViolation<Customer>> violations = validator.validate(customer);
 		assertFalse(violations.isEmpty());
+
+	}
+
+	@Test
+	public void emailCannotBeNull() {
+
+	}
+
+	@Test
+	public void emailCannotBeEmpty() {
+
+	}
+
+	@Test
+	public void EmailCannotBeTheSameAsAnEmailAlreadyRegistered() {
+
+	}
+
+	@Test
+	public void theEmailFieldMustHaveAnEmailAsContent() {
 
 	}
 
