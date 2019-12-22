@@ -41,12 +41,14 @@ public class AccountController {
 	}
 
 	@PostMapping("{idAccount}/deposit")
-	public Account postDeposit(@RequestBody ActionDto actionDto, @PathVariable Long idAccount) {
+	public ResponseEntity<Account> postDeposit(@RequestBody ActionDto actionDto, @PathVariable Long idAccount) {
 
 		Account account = accountService.getAccountById(idAccount);
 		account.deposit(actionDto.getValue());
-		accountService.save(account);
-		return account;
+
+		account = accountService.save(account);
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(account);
 
 	}
 
