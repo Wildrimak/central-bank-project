@@ -62,15 +62,25 @@ public class CustomerTest {
 	@Test
 	public void emailCannotBeEmpty() {
 
-	}
+		customer.setEmail("");
 
-	@Test
-	public void EmailCannotBeTheSameAsAnEmailAlreadyRegistered() {
+		Set<ConstraintViolation<Customer>> violations = validator.validate(customer);
+		assertFalse(violations.isEmpty());
 
 	}
 
 	@Test
 	public void theEmailFieldMustHaveAnEmailAsContent() {
+	
+		customer.setEmail("wildrimak");
+	
+		Set<ConstraintViolation<Customer>> violations = validator.validate(customer);
+		assertFalse(violations.isEmpty());
+	
+	}
+
+	@Test
+	public void emailCannotBeTheSameAsAnEmailAlreadyRegistered() {
 
 	}
 
