@@ -79,4 +79,12 @@ public class CustomerTest {
 
 	}
 
+	@Test
+	public void passwordCannotBeEmpty() {
+		customer.setPassword("");
+		Set<ConstraintViolation<Customer>> violations = validator.validate(customer);
+		assertFalse(violations.isEmpty());
+
+	}
+
 }

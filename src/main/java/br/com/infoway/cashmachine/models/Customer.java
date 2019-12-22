@@ -34,6 +34,7 @@ public class Customer {
 	private String email;
 
 	@JsonIgnore
+	@NotEmpty
 	private String password;
 
 	private String cpf;
