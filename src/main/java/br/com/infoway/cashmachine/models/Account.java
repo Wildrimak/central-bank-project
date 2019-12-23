@@ -39,15 +39,19 @@ public class Account {
 	private Agency agency;
 
 	@NotNull
+	@Range(min = 0)
 	private BigDecimal balance;
 	
 	@NotNull
+	@Range(min = 0)
 	private BigDecimal maximumLimit;
 	
 	@NotNull
+	@Range(min = 0)
 	private BigDecimal currentLimit;
 	
 	@NotNull
+	@Range(min = 0)
 	private BigDecimal fee;
 
 	@OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
