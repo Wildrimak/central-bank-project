@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.validator.constraints.Range;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -23,6 +25,8 @@ public class Account {
 	private Long id;
 
 	private String number;
+
+	@Range(min = 0, max = 9)
 	private Integer verifyingDigit;
 
 	@ManyToOne
@@ -104,7 +108,8 @@ public class Account {
 
 		if (realWithdrawal.compareTo(balance) <= 0) {
 			this.balance = this.balance.subtract(realWithdrawal);
-			this.movements.add(new Movement("Successful withdrawal of " + value.toPlainString() + " + fee of " + fee.toPlainString(), this));
+			this.movements.add(new Movement(
+					"Successful withdrawal of " + value.toPlainString() + " + fee of " + fee.toPlainString(), this));
 			return;
 		}
 
@@ -116,7 +121,8 @@ public class Account {
 		BigDecimal removeFromLimit = this.balance.subtract(realWithdrawal);
 		this.currentLimit = this.currentLimit.add(removeFromLimit);
 		this.balance = BigDecimal.ZERO;
-		this.movements.add(new Movement("Successful withdrawal of " + value.toPlainString() + " + fee of " + fee.toPlainString(), this));
+		this.movements.add(new Movement(
+				"Successful withdrawal of " + value.toPlainString() + " + fee of " + fee.toPlainString(), this));
 
 	}
 
