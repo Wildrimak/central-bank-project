@@ -3,6 +3,8 @@ package br.com.infoway.cashmachine.models;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,7 +22,8 @@ public class Movement {
 	@ManyToOne
 	private Account account;
 
-	private String action;
+	@Enumerated(EnumType.STRING)
+	private MovementAction action;
 	
 	@CreationTimestamp
 	private Date date;
@@ -28,7 +31,7 @@ public class Movement {
 	public Movement() {
 	}
 	
-	public Movement(String action, Account account){
+	public Movement(MovementAction action, Account account){
 		this.action = action;
 		this.account = account;
 	}
@@ -41,7 +44,7 @@ public class Movement {
 		return account;
 	}
 
-	public String getAction() {
+	public MovementAction getAction() {
 		return action;
 	}
 
