@@ -148,6 +148,7 @@ public class Account {
 			account.depositAlgorithm(value);
 			account.notifyMovements(value, MovementAction.TRANSFER_RECEIVED);
 			this.movements.add(new Movement(MovementAction.TRANSFERRED, this));
+			return;
 		}
 
 		throw new IllegalArgumentException("You do not have enough balance to transfer");

@@ -46,7 +46,7 @@ public class BankController {
 	}
 
 	@PostMapping("{idBank}/agencies")
-	public ResponseEntity<Agency> postAgency(@Validated @RequestBody AgencyDto dto, @PathVariable Long idBank) {
+	public ResponseEntity<?> postAgency(@Validated @RequestBody AgencyDto dto, @PathVariable Long idBank) {
 
 		try {
 
@@ -57,7 +57,7 @@ public class BankController {
 			return ResponseEntity.status(HttpStatus.CREATED).body(agency);
 
 		} catch (Exception e) {
-			return new ResponseEntity<Agency>(HttpStatus.BAD_REQUEST);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
 
 	}

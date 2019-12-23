@@ -37,12 +37,17 @@ public class CustomerController {
 	}
 
 	@PostMapping("/accounts")
-	public ResponseEntity<Customer> postCustomer(@RequestBody CustomerDto customerDto) {
+	public ResponseEntity<?> postCustomer(@RequestBody CustomerDto customerDto) {
 
-		Customer customer = customerDto.getCustomer();
-		customer = customerService.save(customer);
+		try {
+			Customer customer = customerDto.getCustomer();
+			customer = customerService.save(customer);
 
-		return ResponseEntity.status(HttpStatus.CREATED).body(customer);
+			return ResponseEntity.status(HttpStatus.CREATED).body(customer);
+
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
 	}
 
 	@GetMapping("/accounts/{idAccount}")

@@ -30,38 +30,51 @@ public class AccountController {
 	}
 
 	@PostMapping("{idAccount}/withdrawal")
-	public ResponseEntity<Account> postWithdrawal(@RequestBody ActionDto actionDto, @PathVariable Long idAccount) {
+	public ResponseEntity<?> postWithdrawal(@RequestBody ActionDto actionDto, @PathVariable Long idAccount) {
 
-		Account account = accountService.getAccountById(idAccount);
-		account.withdrawal(actionDto.getValue());
-		account = accountService.save(account);
+		try {
+			Account account = accountService.getAccountById(idAccount);
+			account.withdrawal(actionDto.getValue());
+			account = accountService.save(account);
 
-		return ResponseEntity.status(HttpStatus.CREATED).body(account);
+			return ResponseEntity.status(HttpStatus.CREATED).body(account);
+
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
 
 	}
 
 	@PostMapping("{idAccount}/deposit")
-	public ResponseEntity<Account> postDeposit(@RequestBody ActionDto actionDto, @PathVariable Long idAccount) {
+	public ResponseEntity<?> postDeposit(@RequestBody ActionDto actionDto, @PathVariable Long idAccount) {
 
-		Account account = accountService.getAccountById(idAccount);
-		account.deposit(actionDto.getValue());
+		try {
+			Account account = accountService.getAccountById(idAccount);
+			account.deposit(actionDto.getValue());
 
-		account = accountService.save(account);
+			account = accountService.save(account);
 
-		return ResponseEntity.status(HttpStatus.CREATED).body(account);
+			return ResponseEntity.status(HttpStatus.CREATED).body(account);
+
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
 
 	}
 
 	@PostMapping("{myAccount}/transfer")
-	public ResponseEntity<Account> postTranfer(@RequestBody ActionDto actionDto, @PathVariable Long myAccount) {
+	public ResponseEntity<?> postTranfer(@RequestBody ActionDto actionDto, @PathVariable Long myAccount) {
 
-		Account account = accountService.getAccountById(myAccount);
-		Account destination = accountService.getAccountById(actionDto.getIdAccount());
-		account.transfer(actionDto.getValue(), destination);
-		account = accountService.save(account);
+		try {
+			Account account = accountService.getAccountById(myAccount);
+			Account destination = accountService.getAccountById(actionDto.getIdAccount());
+			account.transfer(actionDto.getValue(), destination);
+			account = accountService.save(account);
 
-		return ResponseEntity.status(HttpStatus.CREATED).body(account);
-
+			return ResponseEntity.status(HttpStatus.CREATED).body(account);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
 	}
 
 	@GetMapping("{idAccount}/movements")
