@@ -6,15 +6,15 @@ O cenário que imaginei foi, num sistema de caixa eletronico de um cliente qualq
 
 Method  | Endpoint                                  | Description
 --------|-------------------------------------------|--------------------------------------------------------------------------
-POST | /banks ------------------------------------> | Cria um banco
-POST | /banks/{id}/agencies ----------------------> | Cria uma agencia
-POST | /customer/accounts ------------------------> | Cria uma conta
-GET  | /accounts/{id}/movements ------------------> | Ver as movimentações de uma conta
-POST | /accounts/{id}/withdrawal -----------------> | Realiza um saque
-POST | /accounts/{id}/deposit --------------------> | Realiza um deposito
-POST | /accounts/{id}/transfer -------------------> | Realiza uma transferencia
-GET  | localhost:8080/oauth/token ----------------> | Obtem o token de acesso necessário para poder chamar qualquer endpoint
-GET  | /customer/accounts/{id} -------------------> | Ver a conta de um usuário especifico, independente de quem veja
+POST | /banks | Cria um banco
+POST | /banks/{id}/agencies | Cria uma agencia
+POST | /customer/accounts | Cria uma conta
+GET  | /accounts/{id}/movements | Ver as movimentações de uma conta
+POST | /accounts/{id}/withdrawal | Realiza um saque
+POST | /accounts/{id}/deposit Realiza um deposito
+POST | /accounts/{id}/transfer | Realiza uma transferencia
+GET  | localhost:8080/oauth/token | Obtem o token de acesso necessário para poder chamar qualquer endpoint
+GET  | /customer/accounts/{id} | Ver a conta de um usuário especifico, independente de quem veja
 
 Cenários:
 
