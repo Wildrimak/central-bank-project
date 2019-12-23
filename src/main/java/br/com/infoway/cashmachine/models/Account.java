@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Range;
 
@@ -37,9 +38,16 @@ public class Account {
 	@JsonIgnore
 	private Agency agency;
 
+	@NotNull
 	private BigDecimal balance;
+	
+	@NotNull
 	private BigDecimal maximumLimit;
+	
+	@NotNull
 	private BigDecimal currentLimit;
+	
+	@NotNull
 	private BigDecimal fee;
 
 	@OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
