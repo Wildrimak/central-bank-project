@@ -1,5 +1,6 @@
 package br.com.infoway.cashmachine.models;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.math.BigDecimal;
@@ -18,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import br.com.infoway.cashmachine.exceptions.ValueHasToBeGreaterThanZero;
+import br.com.infoway.cashmachine.exceptions.WithdrawalCannotBeHigherThanYourCurrentLimitPlusYourBalanceMinusYourFee;
 import br.com.infoway.cashmachine.repositories.BankRepository;
 
 @RunWith(SpringRunner.class)
@@ -52,6 +55,60 @@ public class AccountTest {
 		Set<ConstraintViolation<Account>> violations = validator.validate(account);
 		assertFalse(violations.isEmpty());
 
+	}
+
+//	
+
+	@Test(expected = ValueHasToBeGreaterThanZero.class)
+	public void theValueHasToBeGreaterThanZero() {
+
+		BigDecimal balance = new BigDecimal(1000);
+		BigDecimal limit = BigDecimal.ZERO;
+		BigDecimal fee = BigDecimal.ZERO;
+		Integer digit = 9;
+
+		Account account = new Account(defaultAgency, balance, limit, defaultCustomer, fee, defaultNumber, digit);
+
+		account.withdrawal(BigDecimal.ZERO);
+		account.withdrawal(new BigDecimal(-1));
+
+	}
+
+//	Saldo = 3000; Limite = 2.000, Limite Atual = 2000, Taxa = 50; => O valor maximo possivel para saque deve ser 4950.
+	@Test(expected = WithdrawalCannotBeHigherThanYourCurrentLimitPlusYourBalanceMinusYourFee.class)
+	public void shouldNotWithdrawIfTheAmountIsGreaterThanTheAmountAvailableForWithdrawal() {
+
+		BigDecimal balance = new BigDecimal(3000);
+		BigDecimal limit = new BigDecimal(2000);
+		BigDecimal fee = new BigDecimal(50);
+		Integer digit = 9;
+
+		Account account = new Account(defaultAgency, balance, limit, defaultCustomer, fee, defaultNumber, digit);
+
+		BigDecimal amountAvailableForWithdrawal = balance.add(account.getCurrentLimit()).subtract(fee);
+
+		account.withdrawal(amountAvailableForWithdrawal.add(BigDecimal.ONE));
+
+	}
+
+//	Se o saque acima for realizado, o saldo deve ficar igual a 0, o limite atual igual a 0 e não sacar os 4950 e ficar 50 reais no saldo;
+	@Test
+	public void theBalanceAfterASpecialWithdrawalRemainsValid() {
+		
+		BigDecimal balance = new BigDecimal(3000);
+		BigDecimal limit = new BigDecimal(2000);
+		BigDecimal fee = new BigDecimal(50);
+		Integer digit = 9;
+
+		Account account = new Account(defaultAgency, balance, limit, defaultCustomer, fee, defaultNumber, digit);
+
+		BigDecimal amountAvailableForWithdrawal = balance.add(account.getCurrentLimit()).subtract(fee);
+
+		account.withdrawal(amountAvailableForWithdrawal);
+
+		assertEquals(account.getBalance(), BigDecimal.ZERO);
+		assertEquals(account.getCurrentLimit(), BigDecimal.ZERO);
+		assertEquals(account.getMaximumLimit(), new BigDecimal(2000));
 	}
 
 }

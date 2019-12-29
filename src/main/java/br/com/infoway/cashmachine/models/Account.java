@@ -18,6 +18,9 @@ import org.hibernate.validator.constraints.Range;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import br.com.infoway.cashmachine.exceptions.ValueHasToBeGreaterThanZero;
+import br.com.infoway.cashmachine.exceptions.WithdrawalCannotBeHigherThanYourCurrentLimitPlusYourBalanceMinusYourFee;
+
 @Entity
 public class Account {
 
@@ -157,38 +160,26 @@ public class Account {
 	private void validateWithdrawal(BigDecimal value) {
 
 		theValueHasToBeGreaterThanZero(value);
-		valuePlusFeeMustBeGreaterThanZero(value);
 
 	}
 
-	private void validateWithdrawalPlusLimit(BigDecimal value) {
-		withdrawalCannotBeHigherThanYourCurrentLimitPlusYourBalance(value);
+	private void validateWithdrawalPlusLimit(BigDecimal realWithdrawal) {
+		withdrawalCannotBeHigherThanYourCurrentLimitPlusYourBalance(realWithdrawal);
 	}
 
 	private void withdrawalCannotBeHigherThanYourCurrentLimitPlusYourBalance(BigDecimal realWithdrawal)
-			throws IllegalArgumentException {
+			throws WithdrawalCannotBeHigherThanYourCurrentLimitPlusYourBalanceMinusYourFee {
 
 		if (realWithdrawal.compareTo(balance.add(currentLimit)) > 0) {
-			throw new IllegalArgumentException(
-					"Your withdrawal cannot be higher than your current limit plus your balance.");
+			throw new WithdrawalCannotBeHigherThanYourCurrentLimitPlusYourBalanceMinusYourFee();
 		}
 
 	}
 
-	private void valuePlusFeeMustBeGreaterThanZero(BigDecimal value) throws IllegalArgumentException {
-
-		BigDecimal realWithdrawal = value.add(fee);
-
-		if (realWithdrawal.compareTo(BigDecimal.ZERO) <= 0) {
-			throw new IllegalArgumentException("The value plus fee must be greater than zero.");
-		}
-
-	}
-
-	private void theValueHasToBeGreaterThanZero(BigDecimal value) throws IllegalArgumentException {
+	private void theValueHasToBeGreaterThanZero(BigDecimal value) throws ValueHasToBeGreaterThanZero {
 
 		if (value.compareTo(BigDecimal.ZERO) <= 0) {
-			throw new IllegalArgumentException("The value has to be greater than zero.");
+			throw new ValueHasToBeGreaterThanZero();
 		}
 
 	}
