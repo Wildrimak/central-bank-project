@@ -1,8 +1,37 @@
-# Cash Machine Project
+# Central Bank Project
 
-Conforme mostrado no TESTE BANCO-DEV_BACK.pdf os requisitos para o projeto dessa api foram retirados daí.
+Desafio – Projeto banco central
 
-O cenário que imaginei foi, num sistema de caixa eletronico de um cliente qualquer, haveria a possibilidade de se simular a criação de um banco, agencia, cliente e conta, além disso o extrato seria visto através das movimentações na conta. Logo criei esses endpoints para representar cada uma dessa ações e para preencher os requisitos solicitados:
+O desafio envolve a implementação de uma API Restful genérica para múltiplos serviços bancários.
+Dentre os serviços, a API terá:
+
+    • Cadastro de uma instituição financeira - Banco
+    • Cadastro de uma agência bancária pertencente a uma instituição
+    • Cadastro de Clientes juntamente com uma conta bancária
+    • Extrato bancário demonstrando a movimentação financeira de uma conta
+    • Saques
+    • Depósitos
+    • Transferências
+
+Observações:
+
+    • Todas as requisições à API precisam de uma autorização seguindo o padrão OAuth 2.0.
+      
+    • As operações de cada conta devem ser isoladas e não influenciar as informações da outra conta logada.
+      
+    • As transferências podem ocorrer entre contas de mesmo banco ou de bancos diferentes.
+      
+    • Os erros devem ser tratados e enviados como retorno da requisição. 
+      
+    • A API deve ser desenvolvida no framework Spring Boot
+      
+    • Deve haver testes unitários, suíte de testes bem organizados
+      
+    • Deve haver recursos do Java 8.
+      
+    • Deve seguir as boas práticas de programação.
+      
+    • Deve utilizar o git com commits pequenos e bem descritos. 
 
 Method  | Endpoint                                  | Description
 --------|-------------------------------------------|--------------------------------------------------------------------------
@@ -13,7 +42,7 @@ GET  | /accounts/{id}/movements | Ver as movimentações de uma conta
 POST | /accounts/{id}/withdrawal | Realiza um saque
 POST | /accounts/{id}/deposit | Realiza um deposito
 POST | /accounts/{id}/transfer | Realiza uma transferencia
-**POST**  | localhost:8080/oauth/token | Obtem o token de acesso necessário para poder chamar qualquer endpoint
+POST  | localhost:8080/oauth/token | Obtem o token de acesso necessário para poder chamar qualquer endpoint
 GET  | /customer/accounts/{id} | Ver a conta de um usuário especifico, independente de quem veja
 
 Cenários:
