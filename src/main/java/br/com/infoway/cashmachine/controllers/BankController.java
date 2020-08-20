@@ -2,6 +2,8 @@ package br.com.infoway.cashmachine.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +38,7 @@ public class BankController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Bank> postBank(@Validated @RequestBody BankDto dto) {
+	public ResponseEntity<Bank> postBank(@Valid @RequestBody BankDto dto) {
 
 		Bank bank = dto.getBank();
 		bank = this.bankService.save(bank);

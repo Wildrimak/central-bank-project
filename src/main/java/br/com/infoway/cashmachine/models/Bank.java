@@ -19,7 +19,7 @@ import org.hibernate.annotations.CreationTimestamp;
 public class Bank {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@NotEmpty(message = "the name is required!")

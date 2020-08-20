@@ -1,9 +1,12 @@
 package br.com.infoway.cashmachine.dto;
 
+import javax.validation.constraints.NotBlank;
+
 import br.com.infoway.cashmachine.models.Bank;
 
 public class BankDto {
 
+	@NotBlank
 	private String name;
 
 	public String getName() {
