@@ -1,12 +1,13 @@
 package br.com.infoway.cashmachine.repositories;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.util.Streamable;
 
 import br.com.infoway.cashmachine.models.Movement;
 
 public interface MovementRepository extends JpaRepository<Movement, Long> {
 
-	Streamable<Movement> findByAccountId(Long id);
+	List<Movement> findByAccountId(Long id);
 	
 }
